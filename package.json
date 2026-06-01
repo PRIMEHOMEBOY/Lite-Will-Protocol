@@ -1,7 +1,7 @@
 {
   "name": "deadvault",
   "version": "1.0.0",
-  "description": "Trustless Dead Man's Switch on LitVM LiteForge Testnet",
+  "description": "LiteWill Vault — Trustless Digital Inheritance on LitVM",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",

@@ -5,9 +5,9 @@ export default function Header({ activeTab, onTabChange }) {
     <header style={{position:"relative",zIndex:10}}>
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"24px 0 18px",borderBottom:"1px solid rgba(37,99,235,.2)",marginBottom:0}}>
         <div style={{display:"flex",alignItems:"center",gap:14}}>
-          <img src="/logo.png" alt="Lite-Will Protocol" style={{width:44,height:44,objectFit:"contain"}} />
+          <img src="/logo.png" alt="LiteWill Vault" style={{width:44,height:44,objectFit:"contain"}} />
           <div>
-            <div style={{fontFamily:"var(--font-display)",fontSize:16,fontWeight:700,letterSpacing:".1em",color:"#60a5fa",textShadow:"0 0 18px rgba(37,99,235,.5)"}}>LITE-WILL PROTOCOL</div>
+            <div style={{fontFamily:"var(--font-display)",fontSize:16,fontWeight:700,letterSpacing:".1em",color:"#60a5fa",textShadow:"0 0 18px rgba(37,99,235,.5)"}}>LITEWILL VAULT</div>
             <div style={{fontFamily:"var(--font-mono)",fontSize:9,letterSpacing:".28em",color:"var(--text-muted)",textTransform:"uppercase"}}>Trustless Digital Inheritance · LitVM</div>
           </div>
         </div>

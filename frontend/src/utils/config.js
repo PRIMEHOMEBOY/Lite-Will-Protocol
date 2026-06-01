@@ -18,7 +18,7 @@ export const litvm = defineChain({
 
 const connectors = connectorsForWallets(
   [{ groupName: "Recommended", wallets: [metaMaskWallet, rabbyWallet, coinbaseWallet] }],
-  { appName: "DeadVault", projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || "deadvault" }
+  { appName: "LiteWill Vault", projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || "deadvault" }
 );
 
 export const wagmiConfig = createConfig({

@@ -38,7 +38,7 @@ export default function App() {
         {tab==="My Vaults"    &&<MyVaults    onAction={handleAction} onTabChange={setTab}/>}
         {tab==="Heirs"        &&<HeirsPage/>}
         <div style={{marginTop:60,paddingTop:20,borderTop:"1px solid var(--border)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12}}>
-          <div style={{fontFamily:"var(--font-mono)",fontSize:10,letterSpacing:".2em",color:"var(--text-muted)"}}>⚖ LITE-WILL PROTOCOL · LITVM LITEFORGE TESTNET · CHAIN ID 4441</div>
+          <div style={{fontFamily:"var(--font-mono)",fontSize:10,letterSpacing:".2em",color:"var(--text-muted)"}}>⚖ LITEWILL VAULT · LITVM LITEFORGE TESTNET · CHAIN ID 4441</div>
           <div style={{fontFamily:"var(--font-mono)",fontSize:10,color:"var(--text-muted)"}}>{CONTRACT_ADDRESS?`Contract: ${CONTRACT_ADDRESS.slice(0,10)}...${CONTRACT_ADDRESS.slice(-6)}`:"Contract: not deployed"}</div>
         </div>
       </div>
