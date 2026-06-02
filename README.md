@@ -69,7 +69,7 @@ There is no trustless, automated way to pass on digital wealth. **LiteWill Vault
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js v18+
@@ -130,11 +130,7 @@ VITE_LITVM_EXPLORER=https://testnet.litvm.com
 
 ## 🌍 Built For
 
-LiteWill Vault was built for the **LiteForge Hackathon** — one of the first real-world dApps deployed on LitVM, Litecoin's first EVM-compatible Layer 2.
-
-Built entirely on an **Android phone** using Termux.
-
----
+LiteWill Vault was built for the **LiteForge Hackathon** — one of the first real-world dApps deployed on LitVM. 
 
 ## 👤 Builder
 
@@ -142,4 +138,4 @@ Built entirely on an **Android phone** using Termux.
 
 ---
 
-*⚖ LiteWill Vault · LitVM LiteForge Testnet · Chain ID 4441*
+*⚖ LiteWill Vault
