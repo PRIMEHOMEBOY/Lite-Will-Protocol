@@ -26,7 +26,7 @@ Deployed on **LitVM LiteForge Testnet (Chain ID: 4441)**
 
 ## 💡 The Problem
 
-Every year, billions in crypto assets become permanently inaccessible because private keys die with their owners. Families who should be grieving instead fight over passwords, get locked out of wallets, or watch life savings disappear forever.
+Every year, crypto assets become permanently inaccessible because private keys die with their owners. Families who should be grieving instead fight over passwords, get locked out of wallets, or watch life savings disappear forever.
 
 There is no trustless, automated way to pass on digital wealth. **LiteWill Vault fixes that.**
 
