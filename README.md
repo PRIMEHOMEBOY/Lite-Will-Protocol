@@ -130,7 +130,7 @@ VITE_LITVM_EXPLORER=https://testnet.litvm.com
 
 ## 🌍 Built For
 
-LiteWill Vault was built for the **LiteForge Hackathon** — one of the first real-world dApps deployed on LitVM. 
+LiteWill Vault was built for the LITECOIN ECOSYSTEM — one of the first real-world dApps deployed on LitVM. 
 
 ## 👤 Builder
 
