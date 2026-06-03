@@ -1,6 +1,7 @@
 import { useAccount } from "wagmi";
 import { useOwnerVaults, useHeirVaults, useTotalVaults, useVault } from "../hooks/useDeadVault";
 import VaultCard from "./VaultCard";
+import CoSignerVaults from "./CoSignerVaults";
 
 function StatCard({label,value,color,delay}){
   return(<div className="card fade-up" style={{animationDelay:`${delay}s`,opacity:0}}><div className="label" style={{marginBottom:10}}>{label}</div><div style={{fontFamily:"'Orbitron',monospace",fontSize:38,fontWeight:900,color,lineHeight:1,textShadow:`0 0 20px ${color}50`}}>{value}</div></div>);
@@ -22,7 +23,6 @@ export default function Dashboard({onTabChange,onAction}){
 
   if(!isConnected)return(
     <div className="empty-state fade-in">
-      {/* Subtle centered logo — like the skull was */}
       <div style={{display:"flex",justifyContent:"center",marginBottom:20}}>
         <img src="/logo.png" alt="" style={{width:80,height:80,objectFit:"contain",opacity:.12}}/>
       </div>
@@ -38,6 +38,8 @@ export default function Dashboard({onTabChange,onAction}){
         <StatCard label="As Heir"        value={heirIds.length}  color="var(--green)"       delay={0.08}/>
         <StatCard label="Total On-Chain" value={String(total)}   color="var(--accent-text)" delay={0.16}/>
       </div>
+
+      {/* Owner vaults */}
       <div className="section-title"><div className="section-num">↓</div>Your Vaults</div>
       {ownerIds.length===0?(
         <div className="empty-state" style={{padding:"40px 0"}}>
@@ -49,10 +51,15 @@ export default function Dashboard({onTabChange,onAction}){
           <button className="btn btn-primary btn-sm" onClick={()=>onTabChange("Create Vault")}>+ Create Vault</button>
         </div>
       ):ownerIds.map((id,i)=><VaultLoader key={String(id)} id={id} onAction={onAction} index={i}/>)}
+
+      {/* Heir vaults */}
       {heirIds.length>0&&(<>
         <div className="section-title" style={{marginTop:36}}><div className="section-num">↓</div>Vaults Where You Are an Heir</div>
         {heirIds.map((id,i)=><VaultLoader key={`h-${String(id)}`} id={id} onAction={onAction} index={i}/>)}
       </>)}
+
+      {/* Co-signer vaults */}
+      <CoSignerVaults/>
     </div>
   );
 }
