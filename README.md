@@ -1,4 +1,4 @@
-# ⚖ LiteWill Vault
+# ⚖ LiteWill Protocol
 
 > **Trustless Digital Inheritance on LitVM**
 
@@ -8,7 +8,7 @@ LiteWill Vault is a trustless on-chain inheritance protocol built on LitVM LiteF
 
 ## 🌐 Live App
 
-**[https://lite-will-vault.vercel.app](https://lite-will-vault.vercel.app)**
+**[https://lite-will-protocol.vercel.app](https://lite-will-protocol.vercel.app)**
 
 ---
 
@@ -28,7 +28,7 @@ Deployed on **LitVM LiteForge Testnet (Chain ID: 4441)**
 
 Every year, crypto assets become permanently inaccessible because private keys die with their owners. Families who should be grieving instead fight over passwords, get locked out of wallets, or watch life savings disappear forever.
 
-There is no trustless, automated way to pass on digital wealth. **LiteWill Vault fixes that.**
+There is no trustless, automated way to pass on digital wealth. **LiteWill Protocol fixes that.**
 
 ---
 
@@ -36,7 +36,7 @@ There is no trustless, automated way to pass on digital wealth. **LiteWill Vault
 
 1. **Create a Vault** — deposit encrypted secrets (keys, passwords, documents) and assign heirs with percentage splits
 2. **Check In Regularly** — prove you're alive every 7, 14, or 30 days
-3. **If You Go Dark** — anyone can mark the vault as claimable after your deadline passes
+3. **If You Go Dark** — the vault is automatically marked as claimable after your deadline passes
 4. **Heirs Claim** — an heir initiates the claim, a trusted co-signer approves, and after a 3-day safety timelock the inheritance is released
 
 ---
@@ -130,7 +130,7 @@ VITE_LITVM_EXPLORER=https://testnet.litvm.com
 
 ## 🌍 Built For
 
-LiteWill Vault was built for the LITECOIN ECOSYSTEM — one of the first real-world dApps deployed on LitVM. 
+LiteWill Protocol was built for the LITECOIN ECOSYSTEM — one of the first real-world dApps deployed on LitVM. 
 
 ## 👤 Builder
 
@@ -138,4 +138,4 @@ LiteWill Vault was built for the LITECOIN ECOSYSTEM — one of the first real-wo
 
 ---
 
-*⚖ LiteWill Vault
+*⚖ LiteWill Protocol
