@@ -1,8 +1,8 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useTheme } from "../ThemeContext";
 
-function SunIcon(){return(<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>)}
-function MoonIcon(){return(<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>)}
+function SunIcon(){return(<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>)}
+function MoonIcon(){return(<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>)}
 
 const TABS = ["Dashboard","Create Vault","My Vaults","Heirs","Profile"];
 
@@ -14,33 +14,50 @@ export default function Header({ activeTab, onTabChange }) {
     <header style={{position:"relative",zIndex:10}}>
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"20px 0 16px",borderBottom:"1px solid var(--border-accent)",marginBottom:0}}>
 
-        {/* Logo + Name */}
-        <div style={{display:"flex",alignItems:"center",gap:14,cursor:"pointer"}} onClick={()=>onTabChange("Dashboard")}>
-          <img src="/logo.png" alt="LiteWill Protocol" style={{width:50,height:50,objectFit:"contain",filter:isDark?"drop-shadow(0 0 8px rgba(230,57,70,.4))":"drop-shadow(0 0 8px rgba(37,99,235,.3))"}}/>
+        {/* Logo + Name — bigger and bolder */}
+        <div style={{display:"flex",alignItems:"center",gap:16,cursor:"pointer"}} onClick={()=>onTabChange("Dashboard")}>
+          <img
+            src="/logo.png"
+            alt="LiteWill Protocol"
+            style={{
+              width:56, height:56, objectFit:"contain",
+              filter: isDark
+                ? "drop-shadow(0 0 10px rgba(52,93,157,.6)) brightness(1.1)"
+                : "drop-shadow(0 0 8px rgba(52,93,157,.3))",
+            }}
+          />
           <div>
-            <div style={{fontFamily:"'Orbitron',monospace",fontSize:17,fontWeight:700,letterSpacing:".1em",color:"var(--accent-text)",textShadow:"0 0 16px var(--accent-glow)"}}>LITEWILL PROTOCOL</div>
-            {/* Fixed subtitle — always visible */}
-            <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,letterSpacing:".22em",color:isDark?"rgba(255,107,107,.7)":"rgba(29,78,216,.7)",textTransform:"uppercase"}}>Trustless Digital Inheritance · LitVM</div>
+            <div style={{fontFamily:"'Orbitron',monospace",fontSize:18,fontWeight:900,letterSpacing:".1em",color:"var(--accent-text)",textShadow:"0 0 20px var(--accent-glow)"}}>
+              LITEWILL PROTOCOL
+            </div>
+            {/* Subtitle — always visible, Litecoin blue tint */}
+            <div style={{
+              fontFamily:"'Share Tech Mono',monospace",
+              fontSize:10, letterSpacing:".22em",
+              color: isDark ? "#9BBFE0" : "#345D9D",
+              textTransform:"uppercase", opacity:.8,
+            }}>
+              Trustless Digital Inheritance · LitVM
+            </div>
           </div>
         </div>
 
         {/* Right side */}
         <div style={{display:"flex",alignItems:"center",gap:10}}>
-
-          {/* Theme toggle — always visible */}
+          {/* Theme toggle — always clearly visible */}
           <button
             onClick={toggleTheme}
             style={{
-              background: isDark ? "rgba(230,57,70,.15)" : "rgba(37,99,235,.1)",
-              border: isDark ? "1px solid rgba(230,57,70,.4)" : "1px solid rgba(37,99,235,.3)",
-              color: isDark ? "#ff6b6b" : "#1d4ed8",
-              width:36, height:36,
+              background: isDark ? "rgba(52,93,157,.2)" : "rgba(52,93,157,.1)",
+              border: `1px solid ${isDark ? "rgba(155,191,224,.4)" : "rgba(52,93,157,.3)"}`,
+              color: isDark ? "#9BBFE0" : "#345D9D",
+              width:38, height:38,
               display:"flex", alignItems:"center", justifyContent:"center",
-              cursor:"pointer", transition:"all .18s",
+              cursor:"pointer", transition:"all .18s", borderRadius:2,
             }}
-            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark?"Switch to light mode":"Switch to dark mode"}
           >
-            {isDark ? <SunIcon/> : <MoonIcon/>}
+            {isDark?<SunIcon/>:<MoonIcon/>}
           </button>
 
           {/* Network pill */}
@@ -53,7 +70,7 @@ export default function Header({ activeTab, onTabChange }) {
         </div>
       </div>
 
-      {/* Nav */}
+      {/* Nav tabs */}
       <nav style={{display:"flex",borderBottom:"1px solid var(--border)",marginBottom:36,overflowX:"auto"}}>
         {TABS.map(tab=>(
           <button key={tab} onClick={()=>onTabChange(tab)} style={{background:"transparent",border:"none",borderBottom:activeTab===tab?"2px solid var(--accent)":"2px solid transparent",color:activeTab===tab?"var(--accent-text)":"var(--text-muted)",padding:"14px 20px",fontFamily:"'Share Tech Mono',monospace",fontSize:"10px",letterSpacing:".18em",textTransform:"uppercase",cursor:"pointer",transition:"all .18s",marginBottom:"-1px",whiteSpace:"nowrap"}}>{tab}</button>

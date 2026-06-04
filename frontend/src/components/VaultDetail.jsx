@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useVault,useHeirs,useClaimRequest,useInitiateClaim,useApproveClaim,useExecuteRelease,useTriggerClaimable,useRevokeVault } from "../hooks/useDeadVault";
 import Countdown from "./Countdown";
@@ -13,7 +13,7 @@ export default function VaultDetail({vaultId,onClose}){
   const {data:d}=useVault(vaultId);
   const {data:heirs=[]}=useHeirs(vaultId);
   const {data:claim}=useClaimRequest(vaultId);
-  const {triggerClaimable,isPending:isTrigger}=useTriggerClaimable();
+  const {triggerClaimable,isPending:isTrigger,isSuccess:triggered}=useTriggerClaimable();
   const {initiateClaim,isPending:isInitiate}=useInitiateClaim();
   const {approveClaim,isPending:isApprove}=useApproveClaim();
   const {executeRelease,isPending:isExecute}=useExecuteRelease();
@@ -21,7 +21,6 @@ export default function VaultDetail({vaultId,onClose}){
   const [showWizard,setShowWizard]=useState(false);
   const [showPrint,setShowPrint]=useState(false);
   const [notifSent,setNotifSent]=useState(false);
-  const [notifSending,setNotifSending]=useState(false);
 
   if(!d)return(<div className="modal-overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}><div style={{textAlign:"center",padding:"40px 0",color:"var(--text-muted)",fontFamily:"monospace"}}><span className="spinner"/> Loading...</div></div></div>);
 
@@ -37,13 +36,14 @@ export default function VaultDetail({vaultId,onClose}){
   const short=(a)=>a?`${a.slice(0,8)}...${a.slice(-6)}`:"—";
   const dateOf=(ts)=>ts?new Date(Number(ts)*1000).toLocaleDateString():"—";
 
-  const handleTriggerAndNotify = async () => {
+  // Auto-send notifications when vault is detected as claimable by heir/cosigner
+  const handleTrigger = async () => {
     triggerClaimable(vaultId);
-    // Send email notifications
-    setNotifSending(true);
-    await notifyVaultClaimable(vaultId);
-    setNotifSending(false);
-    setNotifSent(true);
+    // Auto send notifications after triggering
+    setTimeout(async () => {
+      await notifyVaultClaimable(vaultId);
+      setNotifSent(true);
+    }, 3000);
   };
 
   return(
@@ -69,7 +69,7 @@ export default function VaultDetail({vaultId,onClose}){
             <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 12px",background:"var(--page-bg)",border:"1px solid var(--border)",marginBottom:8}}>
               <div><div style={{fontFamily:"monospace",fontSize:12}}>{h.label||`Heir ${i+1}`}</div><div style={{fontFamily:"monospace",fontSize:10,color:"var(--text-muted)"}}>{short(h.wallet)}</div></div>
               <div style={{display:"flex",alignItems:"center",gap:10}}>
-                <span style={{fontFamily:"'Orbitron',monospace",fontSize:18,fontWeight:700,color:"var(--accent)"}}>{(Number(h.shareBps)/100).toFixed(0)}%</span>
+                <span style={{fontFamily:"'Orbitron',monospace",fontSize:18,fontWeight:700,color:"var(--accent-text)"}}>{(Number(h.shareBps)/100).toFixed(0)}%</span>
                 {h.claimed&&<span className="badge badge-done">Claimed</span>}
               </div>
             </div>
@@ -77,28 +77,35 @@ export default function VaultDetail({vaultId,onClose}){
 
           {status===1&&claim&&(<><hr className="divider"/><div className="label" style={{marginBottom:12}}>Claim Status</div><div className="alert alert-warn" style={{marginBottom:12}}>Claim initiated by {short(claim.initiatedBy)}{claim.coSignerApproved?` · Co-signer approved · Timelock ${timelockDone?"expired ✓":"pending"}`:" · Awaiting co-signer approval"}</div></>)}
 
-          {notifSent&&<div className="alert alert-success">✓ Email notifications sent to heirs and co-signer</div>}
+          {notifSent&&<div className="alert alert-success">✓ Heirs and co-signer have been notified by email</div>}
 
           <hr className="divider"/>
           <div style={{display:"flex",flexDirection:"column",gap:10}}>
 
-            {/* Heir guide button */}
+            {/* Heir guide */}
             {isHeir&&<button className="btn btn-ghost btn-full btn-sm" onClick={()=>setShowWizard(true)}>📋 Claiming Guide (Step-by-Step)</button>}
 
-            {/* Print instructions */}
-            {isOwner&&<button className="btn btn-ghost btn-full btn-sm" onClick={()=>setShowPrint(true)}>🖨 Print Heir Instructions</button>}
+            {/* Print instructions — available to heirs (not owner — owner won't be alive) */}
+            {isHeir&&<button className="btn btn-ghost btn-full btn-sm" onClick={()=>setShowPrint(true)}>🖨 Print Claiming Instructions</button>}
 
-            {/* Trigger claimable + notify */}
-            {status===0&&isExpired&&(
-              <button className="btn btn-danger btn-full" onClick={handleTriggerAndNotify} disabled={isTrigger||notifSending}>
-                {isTrigger||notifSending?<><span className="spinner"/> {notifSending?"Notifying...":"Confirming..."}</>:"⚡ Trigger Claimable + Notify Heirs"}
+            {/* Trigger claimable — ONLY heirs and co-signer, NOT owner */}
+            {status===0&&isExpired&&!isOwner&&(isHeir||isCoSign)&&(
+              <button className="btn btn-primary btn-full" onClick={handleTrigger} disabled={isTrigger}>
+                {isTrigger?<><span className="spinner"/> Processing...</>:"⚡ Claim Inheritance — Notify Everyone"}
               </button>
             )}
 
+            {/* Owner sees info only — cannot trigger */}
+            {status===0&&isExpired&&isOwner&&(
+              <div className="alert alert-info">
+                The vault deadline has passed. Heirs and co-signer can now initiate a claim.
+              </div>
+            )}
+
             {status===1&&isHeir&&!claim?.initiatedAt&&<button className="btn btn-primary btn-full" onClick={()=>initiateClaim(vaultId)} disabled={isInitiate}>{isInitiate?<><span className="spinner"/> Confirming...</>:"📋 Initiate Claim"}</button>}
-            {status===1&&isCoSign&&claim?.initiatedAt&&!claim.coSignerApproved&&<button className="btn btn-success btn-full" onClick={()=>approveClaim(vaultId)} disabled={isApprove}>{isApprove?<><span className="spinner"/> Confirming...</>:"✓ Approve Claim (Co-Signer)"}</button>}
+            {status===1&&isCoSign&&claim?.initiatedAt&&!claim.coSignerApproved&&<button className="btn btn-success btn-full" onClick={()=>approveClaim(vaultId)} disabled={isApprove}>{isApprove?<><span className="spinner"/> Confirming...</>:"✓ Approve Claim"}</button>}
             {status===1&&isHeir&&claim?.coSignerApproved&&timelockDone&&<button className="btn btn-primary btn-full" onClick={()=>executeRelease(vaultId)} disabled={isExecute}>{isExecute?<><span className="spinner"/> Confirming...</>:"🔓 Execute Release"}</button>}
-            {status===0&&isOwner&&<button className="btn btn-danger btn-full btn-sm" onClick={()=>{revokeVault(vaultId);onClose();}} disabled={isRevoke}>{isRevoke?<><span className="spinner"/> Revoking...</>:"✕ Revoke Vault"}</button>}
+            {status===0&&isOwner&&!isExpired&&<button className="btn btn-danger btn-full btn-sm" onClick={()=>{revokeVault(vaultId);onClose();}} disabled={isRevoke}>{isRevoke?<><span className="spinner"/> Revoking...</>:"✕ Revoke Vault"}</button>}
             <button className="btn btn-ghost btn-full btn-sm" onClick={onClose}>Close</button>
           </div>
         </div>
