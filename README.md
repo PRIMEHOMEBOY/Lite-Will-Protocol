@@ -130,7 +130,7 @@ VITE_LITVM_EXPLORER=https://testnet.litvm.com
 
 ## 🌍 Built For
 
-LiteWill Protocol was built for the LITECOIN ECOSYSTEM — one of the first real-world dApps deployed on LitVM. 
+LiteWill Protocol was built for the LITVM LITEFORGE ECOSYSTEM — one of the first real-world dApps deployed on LitVM. 
 
 ## 👤 Builder
 
