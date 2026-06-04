@@ -29,7 +29,7 @@ export default function Footer({onNavigate,activeTab}){
           </a>
           {/* Only ONE X — with the Twitter X icon */}
           <a href="https://x.com/lite_will_pro" target="_blank" rel="noopener noreferrer" className="footer-link" style={{display:"flex",alignItems:"center",gap:6}}>
-            <TwitterXIcon/>X
+            <TwitterXIcon/>
           </a>
         </div>
       </div>
