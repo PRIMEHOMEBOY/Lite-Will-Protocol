@@ -1,8 +1,12 @@
 {
+  "version": "v2",
   "network": "LitVM LiteForge Testnet",
   "chainId": "4441",
-  "address": "0x58f699B5a80e631A6356df0Cb46242f18044E1B7",
+  "address": "0x9c1b1C800Df861C20f347de773cb54eF61bE1217",
   "deployer": "0x4912Aad39f637dB1980311E13df53362e69f5Eb9",
-  "txHash": "0x010abcf0b83e529d468d8fce4cfa2798d4e489769bf3d99a26d77b8bb19411e2",
-  "deployedAt": "2026-06-01T06:53:25.003Z"
+  "txHash": "0xffcce5dca67e69e79e39975ca7e8d25065f3c5bcb121f25e710438ea9c4d9c00",
+  "treasury": "0x1af0e38B4B627BB5d7a071B20E103aEa0380452A",
+  "createFee": "0.21 zkLTC",
+  "claimFee": "0.21 zkLTC",
+  "deployedAt": "2026-06-05T18:42:29.580Z"
 }
