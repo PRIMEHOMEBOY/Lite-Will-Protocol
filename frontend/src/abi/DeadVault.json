@@ -1,5 +1,5 @@
 {
-  "address": "0x9c1b1C800Df861C20f347de773cb54eF61bE1217",
+  "address": "0x58f699B5a80e631A6356df0Cb46242f18044E1B7",
   "chainId": "4441",
   "abi": [
     {
@@ -8,51 +8,22 @@
       "type": "constructor"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "AlreadyClaimed",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "AlreadyCoSigned",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "ClaimNotInitiated",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "deadline",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],
       "name": "DeadlineNotPassed",
       "type": "error"
     },
@@ -72,43 +43,6 @@
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "claimableAt",
-          "type": "uint256"
-        }
-      ],
-      "name": "GracePeriodNotOver",
-      "type": "error"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "required",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "sent",
-          "type": "uint256"
-        }
-      ],
-      "name": "InsufficientFee",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "InvalidGracePeriod",
-      "type": "error"
-    },
-    {
       "inputs": [],
       "name": "InvalidHeirs",
       "type": "error"
@@ -119,13 +53,7 @@
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "total",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"total","type":"uint256"}],
       "name": "InvalidShareTotal",
       "type": "error"
     },
@@ -135,180 +63,41 @@
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "NotCoSigner",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "NotHeir",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "NotHeirOrCoSigner",
-      "type": "error"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "NotOwner",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnableInvalidOwner",
-      "type": "error"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "OwnableUnauthorizedAccount",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "ReentrancyGuardReentrantCall",
-      "type": "error"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "timelockExpiry",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"timelockExpiry","type":"uint256"}],
       "name": "TimelockNotExpired",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "VaultNotActive",
       "type": "error"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "VaultNotClaimable",
       "type": "error"
     },
     {
       "anonymous": false,
       "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newDeadline",
-          "type": "uint256"
-        }
-      ],
-      "name": "CheckedIn",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "coSigner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "approvedAt",
-          "type": "uint256"
-        }
-      ],
-      "name": "ClaimCoSigned",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "heir",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "timelockExpiry",
-          "type": "uint256"
-        }
+        {"indexed":true,"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"indexed":true,"internalType":"address","name":"heir","type":"address"},
+        {"indexed":false,"internalType":"uint256","name":"timelockExpiry","type":"uint256"}
       ],
       "name": "ClaimInitiated",
       "type": "event"
@@ -316,143 +105,31 @@
     {
       "anonymous": false,
       "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "payer",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "feeType",
-          "type": "string"
-        }
+        {"indexed":true,"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"indexed":true,"internalType":"address","name":"coSigner","type":"address"},
+        {"indexed":false,"internalType":"uint256","name":"approvedAt","type":"uint256"}
       ],
-      "name": "FeePaid",
+      "name": "ClaimCoSigned",
       "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
+        {"indexed":true,"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"indexed":true,"internalType":"address","name":"owner","type":"address"},
+        {"indexed":false,"internalType":"uint256","name":"newDeadline","type":"uint256"}
       ],
-      "name": "OwnershipTransferred",
+      "name": "CheckedIn",
       "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "Paused",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "Unpaused",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "triggeredBy",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "claimableAt",
-          "type": "uint256"
-        }
-      ],
-      "name": "VaultClaimable",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "intervalSeconds",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "gracePeriodSeconds",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "heirCount",
-          "type": "uint256"
-        }
+        {"indexed":true,"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"indexed":true,"internalType":"address","name":"owner","type":"address"},
+        {"indexed":false,"internalType":"string","name":"name","type":"string"},
+        {"indexed":false,"internalType":"uint256","name":"intervalSeconds","type":"uint256"},
+        {"indexed":false,"internalType":"uint256","name":"heirCount","type":"uint256"}
       ],
       "name": "VaultCreated",
       "type": "event"
@@ -460,24 +137,19 @@
     {
       "anonymous": false,
       "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "heir",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "shareBps",
-          "type": "uint256"
-        }
+        {"indexed":true,"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"indexed":true,"internalType":"address","name":"triggeredBy","type":"address"},
+        {"indexed":false,"internalType":"uint256","name":"deadline","type":"uint256"}
+      ],
+      "name": "VaultClaimable",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {"indexed":true,"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"indexed":true,"internalType":"address","name":"heir","type":"address"},
+        {"indexed":false,"internalType":"uint256","name":"shareBps","type":"uint256"}
       ],
       "name": "VaultReleased",
       "type": "event"
@@ -485,562 +157,66 @@
     {
       "anonymous": false,
       "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        }
+        {"indexed":true,"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"indexed":true,"internalType":"address","name":"owner","type":"address"}
       ],
       "name": "VaultRevoked",
       "type": "event"
     },
     {
-      "inputs": [],
-      "name": "BASIS_POINTS",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "CLAIM_FEE",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "CLAIM_TIMELOCK",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "MAX_HEIRS",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "MAX_INTERVAL",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "MIN_INTERVAL",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "VAULT_CREATION_FEE",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
+        {"internalType":"string","name":"name","type":"string"},
+        {"internalType":"string","name":"encryptedDataCID","type":"string"},
+        {"internalType":"string","name":"encryptedSymKey","type":"string"},
+        {"internalType":"string","name":"secretType","type":"string"},
+        {"internalType":"uint256","name":"intervalSeconds","type":"uint256"},
+        {"internalType":"address","name":"coSigner","type":"address"},
+        {"internalType":"address[]","name":"heirWallets","type":"address[]"},
+        {"internalType":"uint256[]","name":"heirShares","type":"uint256[]"},
+        {"internalType":"string[]","name":"heirLabels","type":"string[]"}
       ],
-      "name": "approveClaim",
-      "outputs": [],
-      "stateMutability": "payable",
+      "name": "createVault",
+      "outputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "checkIn",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "claimableAt",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "triggerClaimable",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "encryptedDataCID",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "encryptedSymKey",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "secretType",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "intervalSeconds",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "gracePeriodSeconds",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "coSigner",
-          "type": "address"
-        },
-        {
-          "internalType": "address[]",
-          "name": "heirWallets",
-          "type": "address[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "heirShares",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "string[]",
-          "name": "heirLabels",
-          "type": "string[]"
-        }
-      ],
-      "name": "createVault",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "payable",
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "initiateClaim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "approveClaim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "executeRelease",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "getClaimFee",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getClaimRequest",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "address",
-              "name": "initiatedBy",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "initiatedAt",
-              "type": "uint256"
-            },
-            {
-              "internalType": "bool",
-              "name": "coSignerApproved",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint256",
-              "name": "approvedAt",
-              "type": "uint256"
-            },
-            {
-              "internalType": "bool",
-              "name": "executed",
-              "type": "bool"
-            }
-          ],
-          "internalType": "struct DeadVault.ClaimRequest",
-          "name": "",
-          "type": "tuple"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "coSigner",
-          "type": "address"
-        }
-      ],
-      "name": "getCoSignerVaults",
-      "outputs": [
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "heir",
-          "type": "address"
-        }
-      ],
-      "name": "getHeirVaults",
-      "outputs": [
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getHeirs",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "address",
-              "name": "wallet",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "shareBps",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "label",
-              "type": "string"
-            },
-            {
-              "internalType": "bool",
-              "name": "claimed",
-              "type": "bool"
-            }
-          ],
-          "internalType": "struct DeadVault.Heir[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        }
-      ],
-      "name": "getOwnerVaults",
-      "outputs": [
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getVault",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "enum DeadVault.VaultStatus",
-          "name": "",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getVaultCreationFee",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "initiateClaim",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "isClaimable",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "paused",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "renounceOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
       "name": "revokeVault",
       "outputs": [],
       "stateMutability": "nonpayable",
@@ -1048,149 +224,9 @@
     },
     {
       "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "newFee",
-          "type": "uint256"
-        }
-      ],
-      "name": "setClaimFee",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newTreasury",
-          "type": "address"
-        }
-      ],
-      "name": "setTreasury",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "newFee",
-          "type": "uint256"
-        }
-      ],
-      "name": "setVaultCreationFee",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "timeUntilDeadline",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "totalVaults",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "treasury",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        }
-      ],
-      "name": "triggerClaimable",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "newCoSigner",
-          "type": "address"
-        }
-      ],
-      "name": "updateCoSigner",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "newCID",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "newSymKey",
-          "type": "string"
-        }
+        {"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"internalType":"string","name":"newCID","type":"string"},
+        {"internalType":"string","name":"newSymKey","type":"string"}
       ],
       "name": "updateEncryptedData",
       "outputs": [],
@@ -1199,38 +235,124 @@
     },
     {
       "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "newGracePeriodSeconds",
-          "type": "uint256"
-        }
+        {"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"internalType":"uint256","name":"newIntervalSeconds","type":"uint256"}
       ],
-      "name": "updateGracePeriod",
+      "name": "updateInterval",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "vaultId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "newIntervalSeconds",
-          "type": "uint256"
-        }
+        {"internalType":"uint256","name":"vaultId","type":"uint256"},
+        {"internalType":"address","name":"newCoSigner","type":"address"}
       ],
-      "name": "updateInterval",
+      "name": "updateCoSigner",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "getVault",
+      "outputs": [
+        {"internalType":"uint256","name":"","type":"uint256"},
+        {"internalType":"address","name":"","type":"address"},
+        {"internalType":"string","name":"","type":"string"},
+        {"internalType":"string","name":"","type":"string"},
+        {"internalType":"string","name":"","type":"string"},
+        {"internalType":"string","name":"","type":"string"},
+        {"internalType":"uint256","name":"","type":"uint256"},
+        {"internalType":"uint256","name":"","type":"uint256"},
+        {"internalType":"uint256","name":"","type":"uint256"},
+        {"internalType":"address","name":"","type":"address"},
+        {"internalType":"uint8","name":"","type":"uint8"},
+        {"internalType":"uint256","name":"","type":"uint256"},
+        {"internalType":"uint256","name":"","type":"uint256"}
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "getHeirs",
+      "outputs": [
+        {
+          "components": [
+            {"internalType":"address","name":"wallet","type":"address"},
+            {"internalType":"uint256","name":"shareBps","type":"uint256"},
+            {"internalType":"string","name":"label","type":"string"},
+            {"internalType":"bool","name":"claimed","type":"bool"}
+          ],
+          "internalType":"struct DeadVault.Heir[]",
+          "name":"",
+          "type":"tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "getClaimRequest",
+      "outputs": [
+        {
+          "components": [
+            {"internalType":"address","name":"initiatedBy","type":"address"},
+            {"internalType":"uint256","name":"initiatedAt","type":"uint256"},
+            {"internalType":"bool","name":"coSignerApproved","type":"bool"},
+            {"internalType":"uint256","name":"approvedAt","type":"uint256"},
+            {"internalType":"bool","name":"executed","type":"bool"}
+          ],
+          "internalType":"struct DeadVault.ClaimRequest",
+          "name":"",
+          "type":"tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"address","name":"owner","type":"address"}],
+      "name": "getOwnerVaults",
+      "outputs": [{"internalType":"uint256[]","name":"","type":"uint256[]"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"address","name":"heir","type":"address"}],
+      "name": "getHeirVaults",
+      "outputs": [{"internalType":"uint256[]","name":"","type":"uint256[]"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"address","name":"coSigner","type":"address"}],
+      "name": "getCoSignerVaults",
+      "outputs": [{"internalType":"uint256[]","name":"","type":"uint256[]"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "isClaimable",
+      "outputs": [{"internalType":"bool","name":"","type":"bool"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType":"uint256","name":"vaultId","type":"uint256"}],
+      "name": "timeUntilDeadline",
+      "outputs": [{"internalType":"uint256","name":"","type":"uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalVaults",
+      "outputs": [{"internalType":"uint256","name":"","type":"uint256"}],
+      "stateMutability": "view",
       "type": "function"
     }
   ]
