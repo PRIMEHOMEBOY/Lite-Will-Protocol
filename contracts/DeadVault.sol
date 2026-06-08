@@ -41,8 +41,8 @@ contract DeadVault is ReentrancyGuard, Pausable {
         uint256 deadline;
         address coSigner;
         Heir[]  heirs;
-        VaultStatus   status;
-        ClaimRequest  claimRequest;
+        VaultStatus  status;
+        ClaimRequest claimRequest;
         uint256 createdAt;
     }
 
@@ -108,25 +108,17 @@ contract DeadVault is ReentrancyGuard, Pausable {
         if (bytes(encryptedDataCID).length == 0) revert EmptyEncryptedData();
         if (heirWallets.length == 0 || heirWallets.length != heirShares.length || heirWallets.length != heirLabels.length) revert InvalidHeirs();
         if (heirWallets.length > MAX_HEIRS) revert MaxHeirsExceeded();
-
         uint256 totalShares;
         for (uint256 i = 0; i < heirShares.length; i++) { totalShares += heirShares[i]; }
         if (totalShares != BASIS_POINTS) revert InvalidShareTotal(totalShares);
 
         vaultId = ++_vaultCounter;
         Vault storage v = _vaults[vaultId];
-        v.id               = vaultId;
-        v.owner            = msg.sender;
-        v.name             = name;
-        v.encryptedDataCID = encryptedDataCID;
-        v.encryptedSymKey  = encryptedSymKey;
-        v.secretType       = secretType;
-        v.intervalSeconds  = intervalSeconds;
-        v.lastCheckIn      = block.timestamp;
-        v.deadline         = block.timestamp + intervalSeconds;
-        v.coSigner         = coSigner;
-        v.status           = VaultStatus.Active;
-        v.createdAt        = block.timestamp;
+        v.id = vaultId; v.owner = msg.sender; v.name = name;
+        v.encryptedDataCID = encryptedDataCID; v.encryptedSymKey = encryptedSymKey;
+        v.secretType = secretType; v.intervalSeconds = intervalSeconds;
+        v.lastCheckIn = block.timestamp; v.deadline = block.timestamp + intervalSeconds;
+        v.coSigner = coSigner; v.status = VaultStatus.Active; v.createdAt = block.timestamp;
 
         for (uint256 i = 0; i < heirWallets.length; i++) {
             v.heirs.push(Heir({ wallet: heirWallets[i], shareBps: heirShares[i], label: heirLabels[i], claimed: false }));
@@ -134,19 +126,18 @@ contract DeadVault is ReentrancyGuard, Pausable {
         }
         _ownerVaults[msg.sender].push(vaultId);
         _coSignerVaults[coSigner].push(vaultId);
-
         emit VaultCreated(vaultId, msg.sender, name, intervalSeconds, heirWallets.length);
     }
 
     function checkIn(uint256 vaultId) external onlyOwner(vaultId) vaultActive(vaultId) {
         Vault storage v = _vaults[vaultId];
-        v.lastCheckIn = block.timestamp;
-        v.deadline    = block.timestamp + v.intervalSeconds;
+        v.lastCheckIn = block.timestamp; v.deadline = block.timestamp + v.intervalSeconds;
         emit CheckedIn(vaultId, msg.sender, v.deadline);
     }
 
     function triggerClaimable(uint256 vaultId) external vaultActive(vaultId) {
         Vault storage v = _vaults[vaultId];
+        if (!_isHeir(vaultId, msg.sender) && v.coSigner != msg.sender) revert NotHeir(vaultId);
         if (block.timestamp <= v.deadline) revert DeadlineNotPassed(vaultId, v.deadline);
         v.status = VaultStatus.Claimable;
         emit VaultClaimable(vaultId, msg.sender, v.deadline);
@@ -162,19 +153,18 @@ contract DeadVault is ReentrancyGuard, Pausable {
     function approveClaim(uint256 vaultId) external onlyCoSigner(vaultId) nonReentrant {
         Vault storage v = _vaults[vaultId];
         if (v.status != VaultStatus.Claimable) revert VaultNotClaimable(vaultId);
-        if (v.claimRequest.initiatedAt == 0)   revert ClaimNotInitiated(vaultId);
-        if (v.claimRequest.coSignerApproved)    revert AlreadyCoSigned(vaultId);
-        v.claimRequest.coSignerApproved = true;
-        v.claimRequest.approvedAt       = block.timestamp;
+        if (v.claimRequest.initiatedAt == 0) revert ClaimNotInitiated(vaultId);
+        if (v.claimRequest.coSignerApproved) revert AlreadyCoSigned(vaultId);
+        v.claimRequest.coSignerApproved = true; v.claimRequest.approvedAt = block.timestamp;
         emit ClaimCoSigned(vaultId, msg.sender, block.timestamp);
     }
 
     function executeRelease(uint256 vaultId) external onlyHeir(vaultId) nonReentrant {
         Vault storage v = _vaults[vaultId];
-        if (v.status != VaultStatus.Claimable)   revert VaultNotClaimable(vaultId);
-        if (!v.claimRequest.coSignerApproved)     revert ClaimNotInitiated(vaultId);
+        if (v.status != VaultStatus.Claimable) revert VaultNotClaimable(vaultId);
+        if (!v.claimRequest.coSignerApproved) revert ClaimNotInitiated(vaultId);
         uint256 timelockExpiry = v.claimRequest.approvedAt + CLAIM_TIMELOCK;
-        if (block.timestamp < timelockExpiry)     revert TimelockNotExpired(timelockExpiry);
+        if (block.timestamp < timelockExpiry) revert TimelockNotExpired(timelockExpiry);
         for (uint256 i = 0; i < v.heirs.length; i++) {
             if (v.heirs[i].wallet == msg.sender) {
                 if (v.heirs[i].claimed) revert AlreadyClaimed(vaultId);
@@ -194,26 +184,23 @@ contract DeadVault is ReentrancyGuard, Pausable {
     }
 
     function updateEncryptedData(uint256 vaultId, string calldata newCID, string calldata newSymKey) external onlyOwner(vaultId) vaultActive(vaultId) {
-        _vaults[vaultId].encryptedDataCID = newCID;
-        _vaults[vaultId].encryptedSymKey  = newSymKey;
+        _vaults[vaultId].encryptedDataCID = newCID; _vaults[vaultId].encryptedSymKey = newSymKey;
     }
-
     function updateInterval(uint256 vaultId, uint256 newIntervalSeconds) external onlyOwner(vaultId) vaultActive(vaultId) {
         if (newIntervalSeconds < MIN_INTERVAL || newIntervalSeconds > MAX_INTERVAL) revert InvalidInterval();
         _vaults[vaultId].intervalSeconds = newIntervalSeconds;
         _vaults[vaultId].deadline = _vaults[vaultId].lastCheckIn + newIntervalSeconds;
     }
-
     function updateCoSigner(uint256 vaultId, address newCoSigner) external onlyOwner(vaultId) vaultActive(vaultId) {
         _vaults[vaultId].coSigner = newCoSigner;
         _coSignerVaults[newCoSigner].push(vaultId);
     }
 
+    // Returns 13 values — matches original contract
     function getVault(uint256 vaultId) external view returns (uint256,address,string memory,string memory,string memory,string memory,uint256,uint256,uint256,address,VaultStatus,uint256,uint256) {
         Vault storage v = _vaults[vaultId];
         return (v.id,v.owner,v.name,v.encryptedDataCID,v.encryptedSymKey,v.secretType,v.intervalSeconds,v.lastCheckIn,v.deadline,v.coSigner,v.status,v.createdAt,v.heirs.length);
     }
-
     function getHeirs(uint256 vaultId) external view returns (Heir[] memory) { return _vaults[vaultId].heirs; }
     function getClaimRequest(uint256 vaultId) external view returns (ClaimRequest memory) { return _vaults[vaultId].claimRequest; }
     function getOwnerVaults(address owner) external view returns (uint256[] memory) { return _ownerVaults[owner]; }
@@ -228,7 +215,6 @@ contract DeadVault is ReentrancyGuard, Pausable {
         if (block.timestamp >= dl) return 0;
         return dl - block.timestamp;
     }
-
     function _isHeir(uint256 vaultId, address addr) internal view returns (bool) {
         Heir[] storage heirs = _vaults[vaultId].heirs;
         for (uint256 i = 0; i < heirs.length; i++) { if (heirs[i].wallet == addr) return true; }

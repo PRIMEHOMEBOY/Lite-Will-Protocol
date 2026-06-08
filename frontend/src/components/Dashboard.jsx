@@ -10,7 +10,8 @@ function StatCard({label,value,color,delay}){
 function VaultLoader({id,onAction,index}){
   const {data:d}=useVault(id);
   if(!d)return null;
-  if(Number(d[10])===3)return null;
+  if(Number(d[10])===3)return null; // hide revoked
+  // Old contract: d[0]=id,d[1]=owner,d[2]=name,d[3]=cid,d[4]=symkey,d[5]=type,d[6]=interval,d[7]=lastCheckin,d[8]=deadline,d[9]=cosigner,d[10]=status,d[11]=createdAt
   const vault={id,owner:d[1],name:d[2],encryptedDataCID:d[3],encryptedSymKey:d[4],secretType:d[5],intervalSeconds:d[6],lastCheckIn:d[7],deadline:d[8],coSigner:d[9],status:d[10],createdAt:d[11]};
   return <VaultCard vault={vault} onAction={onAction} animDelay={index*0.08}/>;
 }
@@ -38,8 +39,6 @@ export default function Dashboard({onTabChange,onAction}){
         <StatCard label="As Heir"        value={heirIds.length}  color="var(--green)"       delay={0.08}/>
         <StatCard label="Total On-Chain" value={String(total)}   color="var(--accent-text)" delay={0.16}/>
       </div>
-
-      {/* Owner vaults */}
       <div className="section-title"><div className="section-num">↓</div>Your Vaults</div>
       {ownerIds.length===0?(
         <div className="empty-state" style={{padding:"40px 0"}}>
@@ -51,14 +50,10 @@ export default function Dashboard({onTabChange,onAction}){
           <button className="btn btn-primary btn-sm" onClick={()=>onTabChange("Create Vault")}>+ Create Vault</button>
         </div>
       ):ownerIds.map((id,i)=><VaultLoader key={String(id)} id={id} onAction={onAction} index={i}/>)}
-
-      {/* Heir vaults */}
       {heirIds.length>0&&(<>
         <div className="section-title" style={{marginTop:36}}><div className="section-num">↓</div>Vaults Where You Are an Heir</div>
         {heirIds.map((id,i)=><VaultLoader key={`h-${String(id)}`} id={id} onAction={onAction} index={i}/>)}
       </>)}
-
-      {/* Co-signer vaults */}
       <CoSignerVaults/>
     </div>
   );

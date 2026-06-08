@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAccount } from "wagmi";
 import { useVault,useHeirs,useClaimRequest,useInitiateClaim,useApproveClaim,useExecuteRelease,useTriggerClaimable,useRevokeVault } from "../hooks/useDeadVault";
 import Countdown from "./Countdown";
@@ -13,7 +13,7 @@ export default function VaultDetail({vaultId,onClose}){
   const {data:d}=useVault(vaultId);
   const {data:heirs=[]}=useHeirs(vaultId);
   const {data:claim}=useClaimRequest(vaultId);
-  const {triggerClaimable,isPending:isTrigger,isSuccess:triggered}=useTriggerClaimable();
+  const {triggerClaimable,isPending:isTrigger}=useTriggerClaimable();
   const {initiateClaim,isPending:isInitiate}=useInitiateClaim();
   const {approveClaim,isPending:isApprove}=useApproveClaim();
   const {executeRelease,isPending:isExecute}=useExecuteRelease();
@@ -24,6 +24,8 @@ export default function VaultDetail({vaultId,onClose}){
 
   if(!d)return(<div className="modal-overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}><div style={{textAlign:"center",padding:"40px 0",color:"var(--text-muted)",fontFamily:"monospace"}}><span className="spinner"/> Loading...</div></div></div>);
 
+  // Old contract indices: d[0]=id,d[1]=owner,d[2]=name,d[3]=cid,d[4]=symkey,
+  // d[5]=type,d[6]=interval,d[7]=lastCheckin,d[8]=deadline,d[9]=cosigner,d[10]=status,d[11]=createdAt
   const vault={id:vaultId,owner:d[1],name:d[2],encryptedDataCID:d[3],secretType:d[5],intervalSeconds:d[6],lastCheckIn:d[7],deadline:d[8],coSigner:d[9],status:d[10],createdAt:d[11]};
   const status=Number(vault.status);
   const isOwner=vault.owner?.toLowerCase()===address?.toLowerCase();
@@ -36,14 +38,9 @@ export default function VaultDetail({vaultId,onClose}){
   const short=(a)=>a?`${a.slice(0,8)}...${a.slice(-6)}`:"—";
   const dateOf=(ts)=>ts?new Date(Number(ts)*1000).toLocaleDateString():"—";
 
-  // Auto-send notifications when vault is detected as claimable by heir/cosigner
-  const handleTrigger = async () => {
+  const handleTrigger=async()=>{
     triggerClaimable(vaultId);
-    // Auto send notifications after triggering
-    setTimeout(async () => {
-      await notifyVaultClaimable(vaultId);
-      setNotifSent(true);
-    }, 3000);
+    setTimeout(async()=>{await notifyVaultClaimable(vaultId);setNotifSent(true);},3000);
   };
 
   return(
@@ -51,18 +48,14 @@ export default function VaultDetail({vaultId,onClose}){
       <div className="modal-overlay" onClick={onClose}>
         <div className="modal" onClick={e=>e.stopPropagation()} style={{maxWidth:560,maxHeight:"90vh",overflowY:"auto"}}>
           <button onClick={onClose} style={{position:"absolute",top:16,right:16,background:"transparent",border:"none",color:"var(--text-muted)",cursor:"pointer",fontSize:18}}>✕</button>
-
           <div style={{marginBottom:24}}>
             <div className="label" style={{marginBottom:6}}>VLT-{String(vaultId).padStart(4,"0")} · {vault.secretType}</div>
             <div style={{fontFamily:"'Orbitron',monospace",fontSize:20,fontWeight:700,marginBottom:8}}>{vault.name}</div>
             <span className={`badge badge-${["active","urgent","done","revoked"][status]||"active"}`}>{STATUS_LABELS[status]}</span>
           </div>
-
           <hr className="divider"/>
           {status===0&&(<><div className="label" style={{marginBottom:8}}>Time Until Release</div><Countdown deadlineTs={vault.deadline} urgent={isExpired}/></>)}
-
           {[["Owner",short(vault.owner)],["Co-Signer",short(vault.coSigner)],["Created",dateOf(vault.createdAt)],["Interval",`${Math.floor(Number(vault.intervalSeconds)/86400)} days`],["Last Check-In",dateOf(vault.lastCheckIn)]].map(([k,v])=>(<div key={k} className="review-row"><span className="review-key">{k}</span><span className="review-val">{v}</span></div>))}
-
           <hr className="divider"/>
           <div className="label" style={{marginBottom:12}}>Heirs ({heirs.length})</div>
           {heirs.map((h,i)=>(
@@ -74,34 +67,18 @@ export default function VaultDetail({vaultId,onClose}){
               </div>
             </div>
           ))}
-
           {status===1&&claim&&(<><hr className="divider"/><div className="label" style={{marginBottom:12}}>Claim Status</div><div className="alert alert-warn" style={{marginBottom:12}}>Claim initiated by {short(claim.initiatedBy)}{claim.coSignerApproved?` · Co-signer approved · Timelock ${timelockDone?"expired ✓":"pending"}`:" · Awaiting co-signer approval"}</div></>)}
-
           {notifSent&&<div className="alert alert-success">✓ Heirs and co-signer have been notified by email</div>}
-
           <hr className="divider"/>
           <div style={{display:"flex",flexDirection:"column",gap:10}}>
-
-            {/* Heir guide */}
             {isHeir&&<button className="btn btn-ghost btn-full btn-sm" onClick={()=>setShowWizard(true)}>📋 Claiming Guide (Step-by-Step)</button>}
-
-            {/* Print instructions — available to heirs (not owner — owner won't be alive) */}
             {isHeir&&<button className="btn btn-ghost btn-full btn-sm" onClick={()=>setShowPrint(true)}>🖨 Print Claiming Instructions</button>}
-
-            {/* Trigger claimable — ONLY heirs and co-signer, NOT owner */}
             {status===0&&isExpired&&!isOwner&&(isHeir||isCoSign)&&(
               <button className="btn btn-primary btn-full" onClick={handleTrigger} disabled={isTrigger}>
                 {isTrigger?<><span className="spinner"/> Processing...</>:"⚡ Claim Inheritance — Notify Everyone"}
               </button>
             )}
-
-            {/* Owner sees info only — cannot trigger */}
-            {status===0&&isExpired&&isOwner&&(
-              <div className="alert alert-info">
-                The vault deadline has passed. Heirs and co-signer can now initiate a claim.
-              </div>
-            )}
-
+            {status===0&&isExpired&&isOwner&&<div className="alert alert-info">Vault deadline has passed. Heirs and co-signer can now initiate a claim.</div>}
             {status===1&&isHeir&&!claim?.initiatedAt&&<button className="btn btn-primary btn-full" onClick={()=>initiateClaim(vaultId)} disabled={isInitiate}>{isInitiate?<><span className="spinner"/> Confirming...</>:"📋 Initiate Claim"}</button>}
             {status===1&&isCoSign&&claim?.initiatedAt&&!claim.coSignerApproved&&<button className="btn btn-success btn-full" onClick={()=>approveClaim(vaultId)} disabled={isApprove}>{isApprove?<><span className="spinner"/> Confirming...</>:"✓ Approve Claim"}</button>}
             {status===1&&isHeir&&claim?.coSignerApproved&&timelockDone&&<button className="btn btn-primary btn-full" onClick={()=>executeRelease(vaultId)} disabled={isExecute}>{isExecute?<><span className="spinner"/> Confirming...</>:"🔓 Execute Release"}</button>}
@@ -110,7 +87,6 @@ export default function VaultDetail({vaultId,onClose}){
           </div>
         </div>
       </div>
-
       {showWizard&&<ClaimWizard onClose={()=>setShowWizard(false)}/>}
       {showPrint&&<PrintInstructions vaultId={vaultId} vaultName={vault.name} onClose={()=>setShowPrint(false)}/>}
     </>
