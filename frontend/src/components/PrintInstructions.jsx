@@ -5,98 +5,92 @@ export default function PrintInstructions({ vaultId, vaultName, onClose }) {
   const profileRaw = localStorage.getItem("lw-profile");
   const profile = profileRaw ? JSON.parse(profileRaw) : {};
 
-  const handlePrint = () => {
-    const content = `
-      <html>
-      <head>
-        <title>LiteWill Protocol — Heir Instructions</title>
-        <style>
-          body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; color: #1a1a2e; line-height: 1.8; }
-          h1 { color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px; }
-          h2 { color: #1e3a8a; margin-top: 30px; }
-          .box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 16px; margin: 16px 0; border-radius: 4px; }
-          .warning { background: #fef3c7; border: 1px solid #fcd34d; padding: 16px; margin: 16px 0; }
-          .steps { counter-reset: step; }
-          .step { counter-increment: step; margin: 12px 0; padding-left: 36px; position: relative; }
-          .step::before { content: counter(step); position: absolute; left: 0; background: #2563eb; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; text-align: center; line-height: 24px; }
-          footer { margin-top: 60px; border-top: 1px solid #ccc; padding-top: 16px; font-size: 12px; color: #666; }
-        </style>
-      </head>
-      <body>
-        <h1>⚖ LiteWill Protocol — Heir Instructions</h1>
+  const handleDownload = () => {
+    const content = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LiteWill Protocol — Heir Instructions</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;padding:20px;color:#1a1a2e;line-height:1.8}
+  h1{color:#345D9D;border-bottom:3px solid #345D9D;padding-bottom:10px;font-size:22px}
+  h2{color:#1e3a8a;margin-top:28px;font-size:16px}
+  .box{background:#eff6ff;border:1px solid #bfdbfe;padding:16px;margin:16px 0;border-radius:4px}
+  .warn{background:#fef3c7;border:1px solid #fcd34d;padding:16px;margin:16px 0;border-radius:4px;color:#92400e}
+  .step{padding:10px 0;border-bottom:1px solid #e2e8f0;display:flex;gap:12px}
+  .num{background:#345D9D;color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;flex-shrink:0;margin-top:2px}
+  .step-text{flex:1}
+  footer{margin-top:48px;border-top:1px solid #ccc;padding-top:16px;font-size:12px;color:#666}
+  @media print{body{margin:0}}
+</style>
+</head>
+<body>
+<h1>⚖ LiteWill Protocol — Heir Claiming Instructions</h1>
+<div class="box">
+  <strong>Vault Name:</strong> ${vaultName || `Vault #${vaultId}`}<br>
+  <strong>Vault Owner:</strong> ${profile.name || "—"}<br>
+  <strong>App URL:</strong> <a href="https://lite-will-vault.vercel.app">https://lite-will-vault.vercel.app</a><br>
+  <strong>Network:</strong> LiteForge Testnet (Chain ID: 4441)
+</div>
+<div class="warn">⚠ Keep this document secure. Share only with your designated heirs and co-signer.</div>
 
-        <div class="box">
-          <strong>Vault Name:</strong> ${vaultName || `Vault #${vaultId}`}<br/>
-          <strong>Owner:</strong> ${profile.name || "—"}<br/>
-          <strong>App URL:</strong> https://lite-will-vault.vercel.app<br/>
-          <strong>Network:</strong> LiteForge Testnet (Chain ID: 4441)
-        </div>
+<h2>What is LiteWill Protocol?</h2>
+<p>LiteWill Protocol is a digital inheritance system. If ${profile.name || "the vault owner"} stops checking in for the set period, this vault automatically becomes available for you to claim. This document tells you exactly what to do.</p>
 
-        <div class="warning">
-          ⚠ Keep this document in a safe place. Share it only with your designated heirs.
-        </div>
+<h2>Step-by-Step Claiming Instructions</h2>
+<div class="step"><div class="num">1</div><div class="step-text"><strong>Install MetaMask</strong><br>Download from Google Play Store (search "MetaMask" by ConsenSys). Create a new wallet and write down your 12-word recovery phrase on paper and store it safely.</div></div>
+<div class="step"><div class="num">2</div><div class="step-text"><strong>Add LiteForge Network</strong><br>Open MetaMask → tap network at top → Add Network → Add manually.<br>Name: LiteForge Testnet | RPC: https://liteforge.rpc.caldera.xyz/http | Chain ID: 4441 | Currency: zkLTC</div></div>
+<div class="step"><div class="num">3</div><div class="step-text"><strong>Get free zkLTC</strong><br>Visit <a href="https://hub.caldera.xyz">hub.caldera.xyz</a>, connect MetaMask, select LiteForge Testnet, claim free tokens.</div></div>
+<div class="step"><div class="num">4</div><div class="step-text"><strong>Open LiteWill Protocol</strong><br>Go to <a href="https://lite-will-vault.vercel.app">https://lite-will-vault.vercel.app</a> and connect your MetaMask wallet.</div></div>
+<div class="step"><div class="num">5</div><div class="step-text"><strong>Find your vault</strong><br>Go to Dashboard. Find your vault under "Vaults Where You Are an Heir". Tap View Details.</div></div>
+<div class="step"><div class="num">6</div><div class="step-text"><strong>Initiate Claim</strong><br>Tap "Initiate Claim" and confirm the transaction in MetaMask.</div></div>
+<div class="step"><div class="num">7</div><div class="step-text"><strong>Wait for co-signer approval</strong><br>The co-signer must also approve. After approval and a 3-day safety period, return to the app and tap "Execute Release" to access the vault contents.</div></div>
 
-        <h2>What is LiteWill Protocol?</h2>
-        <p>LiteWill Protocol is a digital inheritance system. If ${profile.name || "the vault owner"} stops checking in for the set interval, their vault becomes available for you to claim. This document explains exactly what you need to do.</p>
+<h2>Your Co-Signer (must approve your claim)</h2>
+<div class="box">
+  <strong>Name:</strong> ${contacts?.coSigner?.name || "—"}<br>
+  <strong>Contact:</strong> ${contacts?.coSigner?.contact || "—"}<br>
+  <strong>Wallet:</strong> ${contacts?.coSigner?.address || "—"}
+</div>
 
-        <h2>Step-by-Step Claiming Instructions</h2>
-        <div class="steps">
-          <div class="step">Install MetaMask from the Google Play Store (search "MetaMask" by ConsenSys). Create a new wallet and write down your 12-word recovery phrase.</div>
-          <div class="step">Open MetaMask. Tap the network at the top → Add Network → Add manually. Enter: Name: LiteForge Testnet · RPC: https://liteforge.rpc.caldera.xyz/http · Chain ID: 4441 · Currency: zkLTC</div>
-          <div class="step">Get free zkLTC at hub.caldera.xyz — connect MetaMask, select LiteForge Testnet, and claim tokens.</div>
-          <div class="step">Open https://lite-will-vault.vercel.app in your browser. Connect your MetaMask wallet.</div>
-          <div class="step">Go to Dashboard. Find your vault under "Vaults Where You Are an Heir". Tap View Details → Initiate Claim.</div>
-          <div class="step">Wait for the co-signer to approve (they will be notified automatically).</div>
-          <div class="step">After the co-signer approves and the 3-day safety period passes, return to the app and tap Execute Release.</div>
-        </div>
+<h2>Your Fellow Heirs</h2>
+${(contacts?.heirs||[]).map(h=>`<div class="box"><strong>${h.label||"Heir"} — ${h.name||"—"}</strong><br>Contact: ${h.contact||"—"}<br>Wallet: ${h.address||"—"}<br>Share: ${(Number(h.shareBps||0)/100).toFixed(0)}%</div>`).join("")||"<p>No heir contacts saved.</p>"}
 
-        <h2>Your Designated Co-Signer</h2>
-        <div class="box">
-          <strong>Name:</strong> ${contacts?.coSigner?.name || "—"}<br/>
-          <strong>Contact:</strong> ${contacts?.coSigner?.contact || "—"}<br/>
-          <strong>Wallet:</strong> ${contacts?.coSigner?.address || "—"}
-        </div>
+<h2>Need Help?</h2>
+<p>Email: <a href="mailto:liteprotocol@gmail.com">liteprotocol@gmail.com</a><br>
+App: <a href="https://lite-will-vault.vercel.app">https://lite-will-vault.vercel.app</a><br>
+GitHub: <a href="https://github.com/PRIMEHOMEBOY/Lite-Will-Protocol">github.com/PRIMEHOMEBOY/Lite-Will-Protocol</a></p>
 
-        <h2>Your Heirs</h2>
-        ${(contacts?.heirs || []).map(h => `
-          <div class="box">
-            <strong>${h.label || "Heir"} — ${h.name || "—"}</strong><br/>
-            Contact: ${h.contact || "—"}<br/>
-            Wallet: ${h.address || "—"}
-          </div>
-        `).join("")}
+<footer>Generated by LiteWill Protocol · LitVM LiteForge Testnet · Chain ID 4441<br>This document is for heir reference. Keep it in a safe place.</footer>
+</body>
+</html>`;
 
-        <h2>Need Help?</h2>
-        <p>Email: liteprotocol@gmail.com<br/>
-        App: https://lite-will-vault.vercel.app<br/>
-        GitHub: https://github.com/PRIMEHOMEBOY/Lite-Will-Protocol</p>
-
-        <footer>
-          Generated by LiteWill Protocol · Built on LitVM LiteForge Testnet · Chain ID 4441<br/>
-          This document is for heir reference only. Keep it secure.
-        </footer>
-      </body>
-      </html>
-    `;
-
-    const win = window.open("", "_blank");
-    win.document.write(content);
-    win.document.close();
-    win.print();
+    // Create a downloadable file — works on mobile
+    const blob = new Blob([content], { type: "text/html" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = `LiteWill-Heir-Instructions-${vaultName||vaultId}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    onClose();
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal" onClick={e => e.stopPropagation()}>
+      <div className="modal" onClick={e=>e.stopPropagation()}>
         <button onClick={onClose} style={{position:"absolute",top:16,right:16,background:"transparent",border:"none",color:"var(--text-muted)",cursor:"pointer",fontSize:18}}>✕</button>
-        <div style={{fontFamily:"'Orbitron',monospace",fontSize:16,fontWeight:700,marginBottom:8}}>Print Heir Instructions</div>
-        <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:11,color:"var(--text-muted)",marginBottom:20}}>Generate a printable guide for your heirs</div>
+        <div style={{fontFamily:"'Orbitron',monospace",fontSize:16,fontWeight:700,marginBottom:8}}>Heir Claiming Instructions</div>
+        <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:11,color:"var(--text-muted)",marginBottom:20}}>Download a complete guide for your heirs</div>
         <div className="alert alert-accent" style={{marginBottom:20}}>
-          This document includes step-by-step claiming instructions, co-signer contact details, and heir information. Print it and keep it with your physical documents.
+          Downloads an HTML file with full claiming instructions, co-signer contact, and heir details. Open it in any browser to read or print.
         </div>
         <div className="grid-2">
           <button className="btn btn-ghost btn-full" onClick={onClose}>Cancel</button>
-          <button className="btn btn-primary btn-full" onClick={handlePrint}>🖨 Print / Save PDF</button>
+          <button className="btn btn-primary btn-full" onClick={handleDownload}>⬇ Download Guide</button>
         </div>
       </div>
     </div>
