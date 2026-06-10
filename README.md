@@ -130,11 +130,11 @@ VITE_LITVM_EXPLORER=https://testnet.litvm.com
 
 ## 🌍 Built For
 
-LiteWill Protocol was built for the LITVM LITEFORGE ECOSYSTEM — one of the first real-world dApps deployed on LitVM. 
+LiteWill Protocol was built for the LITVM LITEFORGE ECOSYSTEM —  the first inheritance protocol deployed on LitVM. 
 
 ## 👤 Builder
 
-**PRIMEHOMEBOY** — LiteForge Hackathon 2026
+**PRIMEHOMEBOY**
 
 ---
 
