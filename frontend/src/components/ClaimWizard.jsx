@@ -23,7 +23,7 @@ const STEPS = [
   },
   {
     title: "Step 4 — Open LiteWill Protocol",
-    content: `Now you are ready to claim your inheritance.\n\n1. Open your browser and go to:\nhttps://lite-will-vault.vercel.app\n\n2. Tap "Connect Wallet" in the top right\n3. Select MetaMask and approve the connection\n4. Make sure you are on LiteForge Testnet\n5. Go to "Dashboard" — you should see the vault listed under "Vaults Where You Are an Heir"\n6. Tap "View Details"\n7. Tap "Initiate Claim"`,
+    content: `Now you are ready to claim your inheritance.\n\n1. Open your browser and go to:\nhttps://lite-will-protocol.vercel.app\n\n2. Tap "Connect Wallet" in the top right\n3. Select MetaMask and approve the connection\n4. Make sure you are on LiteForge Testnet\n5. Go to "Dashboard" — you should see the vault listed under "Vaults Where You Are an Heir"\n6. Tap "View Details"\n7. Tap "Initiate Claim"`,
     action: "Claim initiated — continue",
   },
   {

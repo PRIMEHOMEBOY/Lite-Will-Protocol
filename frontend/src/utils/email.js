@@ -43,7 +43,7 @@ Step 3: Get free zkLTC tokens
 Visit hub.caldera.xyz, connect your MetaMask, select LiteForge Testnet, claim free tokens.
 
 Step 4: Open LiteWill Protocol
-Go to https://lite-will-vault.vercel.app in your browser.
+Go to https://lite-will-protocol.vercel.app in your browser.
 Connect your MetaMask wallet.
 
 Step 5: Find and claim your vault
@@ -113,7 +113,7 @@ export async function notifyVaultClaimable(vaultId) {
         vault_name:       vaultName,
         owner_name:       ownerName,
         status:           "APPROVAL REQUIRED",
-        message:          `${ownerName} has not checked in and their vault "${vaultName}" is now claimable.\n\nAs the designated co-signer, your approval is required to release the vault to the heirs.\n\nPlease open LiteWill Protocol and go to Dashboard → "Vaults Where You Are Co-Signer" → Approve Claim.\n\nApp: https://lite-will-vault.vercel.app`,
+        message:          `${ownerName} has not checked in and their vault "${vaultName}" is now claimable.\n\nAs the designated co-signer, your approval is required to release the vault to the heirs.\n\nPlease open LiteWill Protocol and go to Dashboard → "Vaults Where You Are Co-Signer" → Approve Claim.\n\nApp: https://lite-will-protocol.vercel.app`,
         cosigner_name:    coSignerName,
         cosigner_contact: coSignerContact,
         cosigner_wallet:  coSignerWallet,
