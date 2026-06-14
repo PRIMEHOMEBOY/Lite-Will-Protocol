@@ -4,6 +4,9 @@ import DeadVaultABI from "../abi/DeadVault.json";
 
 const contractConfig = { address: CONTRACT_ADDRESS, abi: DeadVaultABI.abi };
 
+// Fixed gas limit for all transactions — avoids LiteForge estimation bug
+const GAS_LIMIT = 500000n;
+
 export function useVault(vaultId) {
   return useReadContract({ ...contractConfig, functionName:"getVault", args:[vaultId], query:{enabled:!!vaultId} });
 }
@@ -31,7 +34,7 @@ export function useTotalVaults() {
 function useWrite(functionName) {
   const {writeContract,data:hash,isPending,error}=useWriteContract();
   const {isLoading:isConfirming,isSuccess}=useWaitForTransactionReceipt({hash});
-  return { write:(args)=>writeContract({...contractConfig,functionName,args}), hash, isPending, isConfirming, isSuccess, error };
+  return { write:(args)=>writeContract({...contractConfig,functionName,args,gas:GAS_LIMIT}), hash, isPending, isConfirming, isSuccess, error };
 }
 
 export function useCreateVault() {
@@ -40,6 +43,7 @@ export function useCreateVault() {
   const createVault=(args)=>writeContract({
     ...contractConfig, functionName:"createVault",
     args:[args.name,args.encryptedDataCID,args.encryptedSymKey,args.secretType,BigInt(args.intervalSeconds),args.coSigner,args.heirWallets,args.heirShares.map(BigInt),args.heirLabels],
+    gas: GAS_LIMIT,
   });
   return {createVault,hash,isPending,isConfirming,isSuccess,error};
 }
